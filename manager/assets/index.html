@@ -23,19 +23,19 @@
   <div class="page-wrap">
     <div class="header-outer-wrap">
       <div class="header-wrap">
-        <h1>Multi-party computation service</h1>
+        <h1>多方安全计算</h1>
       </div>
     </div>
     <div class="caption-text-wrap">
-      <h2> MPC nodes connected to the network </h2>
+      <h2> 已连接的 MPC 节点 </h2>
 
       <table class="datasets">
         <thead>
           <tr>
             <th></th>
-            <th>Nodes</th>
-            <th>Address</th>
-            <th>Description</th>
+            <th>节点</th>
+            <th>地址</th>
+            <th>描述</th>
           </tr>
         </thead>
         <tbody id="nodes">
@@ -48,16 +48,16 @@
     <div class="node-outer-wrap">
 
       <div class="node-wrap">
-        <h2> Datasets </h2>
+        <h2> 数据集 </h2>
 
-        <h4 class="available-detaset"> Available datasets </h4>
+        <h4 class="available-detaset"> 可用的数据集 </h4>
         <table class="datasets">
           <thead>
             <tr>
               <th> </th>
-              <th>Dataset</th>
-              <th>Data entries (size)</th>
-              <th>Shared with</th>
+              <th>数据集</th>
+              <th>数据集大小</th>
+              <th>与谁分享</th>
             </tr>
           </thead>
           <tbody id="datasets">
@@ -67,7 +67,7 @@
         <script> load_datasets_table() </script>
 
         <div class="add-detaset-wrap">
-          <h4> Add a dataset </h4>
+          <h4> 添加数据集 </h4>
           <p class="dataset-description">
             To add a dataset join as a dataset server or provide a downloadable link. For the latter, select 3 MPC
             nodes
@@ -81,8 +81,7 @@
 
 
             <div class="enc-btn-wrap">
-              <button class="enc-button" onclick="loadAndSplit()">Encrypt
-                Selected File</button>
+              <button class="enc-button" onclick="loadAndSplit()">加密选择的文件</button>
 
             </div>
           </div>
@@ -104,7 +103,7 @@
     </div>
 
     <div class="request-mpc-wrap">
-      <h2> Request an MPC computation </h2>
+      <h2> 发起 MPC 计算 </h2>
       <p>
         To initiate a computation select three MPC nodes, (possibly multiple) datasets, a desired function, and
         click
