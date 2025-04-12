@@ -69,36 +69,15 @@
         <div class="add-detaset-wrap">
           <h4> 添加数据集 </h4>
           <p class="dataset-description">
-            To add a dataset join as a dataset server or provide a downloadable link. For the latter, select 3 MPC
+            To add a dataset, join as a dataset server or provide a downloadable link. For the latter, select 3 MPC
             nodes
             that
             you want to share your data with, and then select a CSV file to encrypt:
 
           </p>
 
-          <div>
-            <form id="uploadForm" enctype="multipart/form-data">
-              <input type="file" name="file" />
-              <button type="submit">上传</button>
-            </form>
-            
-            <script>
-            document.getElementById("uploadForm").addEventListener("submit", function(e) {
-              e.preventDefault();
-              const formData = new FormData();
-              const file = document.querySelector('input[type="file"]').files[0];
-              formData.append("file", file);
-            
-              fetch("/upload_dataset", {
-                method: "POST",
-                body: formData
-              }).then(res => res.text()).then(alert);
-            });
-            </script>
-          </div>
-
           <div class="file-select-wrap">
-            <input type="file" id="fileToLoad">
+            <input type="file" id="fileToLoad" onchange="uploadDataset()" />
             <div class="under-line"></div>
 
 
@@ -165,6 +144,38 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // This function handles the file upload process.
+    function uploadDataset() {
+      const file = document.getElementById('fileToLoad').files[0];
+      const datasetName = document.getElementById('dataset_name').value;
+      const datasetLink = document.getElementById('dataset_link').value;
+
+      if (!file) {
+        alert("Please select a file first.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("dataset_name", datasetName);
+      formData.append("dataset_link", datasetLink);
+
+      fetch("http://localhost:8081/upload", {
+        method: "POST",
+        body: formData,
+      })
+        .then(response => response.text())
+        .then(data => {
+          alert("Dataset uploaded successfully.");
+        })
+        .catch(error => {
+          alert("Upload failed: " + error);
+        });
+    }
+  </script>
+
 </body>
 
 </html>

@@ -8,15 +8,19 @@ import (
 	"encoding/json"
 	"encoding/pem"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/gorilla/websocket"
-	log "github.com/sirupsen/logrus"
 	"github.com/krakenh2020/MPCService/data_management"
 	"github.com/krakenh2020/MPCService/logging"
+	log "github.com/sirupsen/logrus"
+
+	"net/http"
+	"os"
 )
 
 // todo: error management
@@ -44,11 +48,48 @@ type DatasetReturn struct {
 	Cols    []string
 }
 
+func StartUploadServer(uploadPath string) {
+	http.HandleFunc("/upload", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Error(w, "Only POST is allowed", http.StatusMethodNotAllowed)
+			return
+		}
+
+		file, handler, err := r.FormFile("file")
+		if err != nil {
+			http.Error(w, "Error retrieving file", http.StatusBadRequest)
+			return
+		}
+		defer file.Close()
+
+		f, err := os.Create(uploadPath + "/" + handler.Filename)
+		if err != nil {
+			http.Error(w, "Error saving file", http.StatusInternalServerError)
+			return
+		}
+		defer f.Close()
+
+		_, err = io.Copy(f, file)
+		if err != nil {
+			http.Error(w, "Error writing file", http.StatusInternalServerError)
+			return
+		}
+
+		w.Write([]byte("File uploaded successfully"))
+	})
+
+	log.Info("Starting upload server on :8081")
+	http.ListenAndServe(":8081", nil)
+}
+
 func RunDatasetProvider(name string, loc string, logLevel, logFile, managerAddr, certFolder string, sharedWith []string) {
 	// set up logging
 	logging.LogSetUp(logLevel, logFile)
 	log.Info("Dataset server "+name+", dataset location: ", loc, ", manager address: ", managerAddr)
 	datasets, locations := getDatasetsData(loc, sharedWith)
+
+	// ✅ 启动上传服务
+	StartUploadServer(loc)
 
 	managerConn(name, managerAddr, datasets, locations, certFolder, sharedWith)
 }
