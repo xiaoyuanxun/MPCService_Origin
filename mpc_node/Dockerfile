@@ -24,8 +24,15 @@ WORKDIR /
 RUN mkdir -p /local
 WORKDIR /local
 
+# # install MPIR
+# RUN curl -O 'http://mpir.org/mpir-3.0.0.tar.bz2'
+# RUN tar xf mpir-3.0.0.tar.bz2
+# WORKDIR /local/mpir-3.0.0
+# RUN ./configure --enable-cxx --prefix="/local/mpir"
+# RUN make && make check && make install
+
 # install MPIR
-RUN curl -O 'http://mpir.org/mpir-3.0.0.tar.bz2'
+RUN curl -O 'http://sources.buildroot.net/mpir/mpir-3.0.0.tar.bz2'
 RUN tar xf mpir-3.0.0.tar.bz2
 WORKDIR /local/mpir-3.0.0
 RUN ./configure --enable-cxx --prefix="/local/mpir"
@@ -33,8 +40,10 @@ RUN make && make check && make install
 
 # install OpenSSL 1.1.0
 WORKDIR /local
-RUN curl -O https://www.openssl.org/source/old/1.1.1/openssl-1.1.1e.tar.gz
-RUN tar -xf openssl-1.1.1e.tar.gz
+# RUN curl -O https://www.openssl.org/source/old/1.1.1/openssl-1.1.1e.tar.gz
+# RUN tar -xf openssl-1.1.1e.tar.gz
+RUN wget https://www.openssl.org/source/openssl-1.1.1e.tar.gz && \
+    tar -xzf openssl-1.1.1e.tar.gz
 WORKDIR /local/openssl-1.1.1e
 RUN ./config --prefix="/local/openssl"
 RUN make && make install
