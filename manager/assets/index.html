@@ -75,6 +75,28 @@
             you want to share your data with, and then select a CSV file to encrypt:
 
           </p>
+
+          <div>
+            <form id="uploadForm" enctype="multipart/form-data">
+              <input type="file" name="file" />
+              <button type="submit">上传</button>
+            </form>
+            
+            <script>
+            document.getElementById("uploadForm").addEventListener("submit", function(e) {
+              e.preventDefault();
+              const formData = new FormData();
+              const file = document.querySelector('input[type="file"]').files[0];
+              formData.append("file", file);
+            
+              fetch("/upload_dataset", {
+                method: "POST",
+                body: formData
+              }).then(res => res.text()).then(alert);
+            });
+            </script>
+          </div>
+
           <div class="file-select-wrap">
             <input type="file" id="fileToLoad">
             <div class="under-line"></div>

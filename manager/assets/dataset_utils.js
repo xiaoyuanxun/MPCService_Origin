@@ -106,6 +106,8 @@ async function loadAndSplit() {
   fileReader.onload = async function (fileLoadedEvent) {
     var data = fileLoadedEvent.target.result;
 
+    console.log('data : ', data)
+    
     // need to load public keys of selected MPC nodes
     let nodes = await getNodes();
     var selectedNodes = getSelectedIndexes("nodes");

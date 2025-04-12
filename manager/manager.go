@@ -5,8 +5,10 @@ import (
 	"crypto/x509"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"sync"
@@ -15,9 +17,9 @@ import (
 	"github.com/krakenh2020/MPCService/logging"
 
 	"github.com/gorilla/websocket"
-	log "github.com/sirupsen/logrus"
 	"github.com/krakenh2020/MPCService/data_provider"
 	"github.com/krakenh2020/MPCService/mpc_engine"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/gorilla/mux"
 )
@@ -401,6 +403,46 @@ removeMPCnode:
 	mpcNodes.mu.Unlock()
 }
 
+func uploadDatasetHandler(w http.ResponseWriter, r *http.Request) {
+	// 限制文件大小（例如 10MB）
+	r.ParseMultipartForm(10 << 20)
+
+	// 获取上传的文件
+	file, handler, err := r.FormFile("dataset")
+	if err != nil {
+		http.Error(w, "Error retrieving the file", http.StatusBadRequest)
+		log.Error("Error retrieving the file:", err)
+		return
+	}
+	defer file.Close()
+
+	// 打印文件信息
+	log.Infof("Received file: %+v\n", handler.Filename)
+
+	// 拼接目标路径，保存在 ./data_provider/datasets/ 目录下
+	destinationPath := "./data_provider/datasets/" + handler.Filename
+
+	// 创建目标文件
+	dst, err := os.Create(destinationPath)
+	if err != nil {
+		http.Error(w, "Error saving the file", http.StatusInternalServerError)
+		log.Error("Error saving the file:", err)
+		return
+	}
+	defer dst.Close()
+
+	// 拷贝文件内容
+	_, err = io.Copy(dst, file)
+	if err != nil {
+		http.Error(w, "Error saving the file", http.StatusInternalServerError)
+		log.Error("Error copying the file:", err)
+		return
+	}
+
+	log.Infof("File saved to %s", destinationPath)
+	w.Write([]byte("File uploaded successfully."))
+}
+
 func newRouters(assets string) (*mux.Router, *mux.Router) {
 	r1 := mux.NewRouter()
 	r1.HandleFunc("/hello", handler).Methods("GET")
@@ -408,6 +450,7 @@ func newRouters(assets string) (*mux.Router, *mux.Router) {
 	r1.HandleFunc("/datasets", getDatasetsHandler).Methods("GET")
 	r1.HandleFunc("/datasets", addDatasetHandler).Methods("POST")
 	r1.HandleFunc("/compute", requestComputation).Methods("POST")
+	r1.HandleFunc("/upload_dataset", uploadDatasetHandler).Methods("POST")
 
 	var staticFileDirectory http.Dir
 	if assets == "" {
