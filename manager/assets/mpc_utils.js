@@ -10,6 +10,9 @@ function load_nodes_table() {
         // Create the table row
         row = document.createElement("tr");
 
+        console.log('node : ', node)
+
+        console.log('node.name : ', node.name)
         // Create the table data elements for the species and description columns
         var checkbox = document.createElement("INPUT");
         checkbox.type = "checkbox";
