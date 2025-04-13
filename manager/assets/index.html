@@ -23,7 +23,7 @@
   <div class="page-wrap">
     <div class="header-outer-wrap">
       <div class="header-wrap">
-        <h1>多方安全计算</h1>
+        <h1>基于同态密码的多方数据安全计算及隐私保护工具</h1>
       </div>
     </div>
     <div class="caption-text-wrap">
@@ -110,8 +110,201 @@
         the following button.
       </p>
 
+      <tbody id="nodes">
+        <tr>
+     
+          <td>
+            <div class="nodes-select-outer-wrap">
+              <div class="node-select-wrap">
+                <input type="checkbox" class="function" id="avg" name="contact" value="avg">
+                <label for="avg">Average</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+      
+          <td>
+            <div class="nodes-select-outer-wrap">
+              <div class="node-select-wrap">
+                <input type="checkbox" class="function" id="min" name="contact" value="min">
+                <label for="min">Minimum</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+  
+          <td>
+            <div class="nodes-select-outer-wrap">
+              <div class="node-select-wrap">
+                <input type="checkbox" class="function" id="max" name="contact" value="max">
+                <label for="max">Maximum</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+      
+          <td>
+            <div class="nodes-select-outer-wrap">
+              <div class="node-select-wrap">
+                <input type="checkbox" class="function" id="absolute" name="contact" value="absolute">
+                <label for="absolute">AbsoluteDeviation</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+    
+          <td>
+            <div class="nodes-select-outer-wrap">
+              <div class="node-select-wrap">
+                <input type="checkbox" class="function" id="quartile" name="contact" value="quartile">
+                <label for="quartile">Quartile</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+         
+          <td>
+            <div class="nodes-select-outer-wrap">
+              <div class="node-select-wrap">
+                <input type="checkbox" class="function" id="medium" name="contact" value="medium">
+                <label for="medium">Medium</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+        
+          <td>
+            <div class="nodes-select-outer-wrap">
+              <div class="node-select-wrap">
+                <input type="checkbox" class="function" id="upperquartile" name="contact" value="upperquartile">
+                <label for="upperquartile">UpperQuartile</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+     
+          <td>
+            <div class="nodes-select-outer-wrap">
+              <div class="node-select-wrap">
+                <input type="checkbox" class="function" id="variance" name="contact" value="variance">
+                <label for="variance">Variance</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+         
+          <td>
+            <div class="nodes-select-outer-wrap">
+              <div class="node-select-wrap">
+                <input type="checkbox" class="function" id="standard" name="contact" value="standard">
+                <label for="standard">StandardDeviation</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+      
+          <td>
+            <div class="nodes-select-outer-wrap">
+              <div class="node-select-wrap">
+                <input type="checkbox" class="function" id="sknewness" name="contact" value="sknewness">
+                <label for="sknewness">Sknewness</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+      
+          <td>
+            <div class="nodes-select-outer-wrap">
+              <div class="node-select-wrap">
+                <input type="checkbox" class="function" id="kurtosis" name="contact" value="kurtosis">
+                <label for="kurtosis">Kurtosis</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      </table>
+      </div>
+  
+  <div style="  font-size: 20px;">
+      <div class="nodes-select-outer-wrap" style="margin-left: 300px; ">
+  
+  
+  
+        <button class="request-btn" onClick="mpc_computation2();" id="addButton">
+          发起计算
+        </button>
+        <div class="error-msg" id="errorMsg" style="display:none"></div>
+  
+        <p>
+          <progress id="progressBar" max="100" value="0"></progress>
+        </p>
+      </div>
+    </div>
+    <style >
+      .blue-button {
+    background-color: blue;
+    color: white;
+    border-radius: 10px; /* 设置圆角半径 */
+    padding: 10px 20px; /* 设置内边距 */
+  }
 
-      <div class="nodes-select-outer-wrap">
+  .request-btn {
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-top: 40px;
+
+  }
+
+  .sidenav {
+    height: 100%;
+    width: 300px; /* 增加宽度 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  .sidenav button {
+    display: block;
+    font-size: 16px;
+    border: none;
+    background-color: inherit;
+    color: black;
+    padding: 12px 16px;
+    margin: 10px auto; /* 设置左右 margin 为 auto 实现居中 */
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    width: 50%; /* 让按钮宽度为容器宽度的一半 */
+  }
+  
+  /* 当按钮被 hover 时改变背景色 */
+  .sidenav button:hover {
+    background-color: blue; /* 改变背景色为蓝色 */
+    color: white; /* 同时改变字体颜色为白色以突出显示 */
+  }
+  .sidenav #new-computation {
+  background-color: blue;
+  color: white;
+}
+
+  </style>
+      <!-- <div class="nodes-select-outer-wrap">
         <div class="node-select-wrap">
           <input type="checkbox" class="function" id="avg" name="contact" value="avg">
           <label for="avg">Average</label>
@@ -202,9 +395,9 @@
           (Number of clusters: <input class="num_clusters" type="text" id="num_clusters" name="num_clusters">)
         </div>
 
-        <button class="request-btn" onClick="mpc_computation();" id="addButton">
+        <button class="request-btn" onClick="mpc_computation2();" id="addButton">
           Request the MPC computation.
-        </button>
+        </button> -->
         <div class="error-msg" id="errorMsg" style="display:none"></div>
 
         <p>
