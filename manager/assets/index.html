@@ -69,11 +69,10 @@
         <div class="add-detaset-wrap">
           <h4> 添加数据集 </h4>
           <p class="dataset-description">
-            To add a dataset join as a dataset server or provide a downloadable link. For the latter, select 3 MPC
-            nodes
-            that
-            you want to share your data with, and then select a CSV file to encrypt:
-
+            To add a dataset join as a dataset server or provide a downloadable link. 
+          </p>
+          <p class="dataset-description">
+            For the latter, select 3 MPC nodes that you want to share your data with, and then select a CSV file to encrypt:
           </p>
           <div class="file-select-wrap">
             <input type="file" id="fileToLoad">
@@ -105,35 +104,103 @@
     <div class="request-mpc-wrap">
       <h2> 发起 MPC 计算 </h2>
       <p>
-        To initiate a computation select three MPC nodes, (possibly multiple) datasets, a desired function, and
-        click
-        the following button.
+        请选择三个MPC节点，计算的数据集以及计算方法，然后点击按钮发起多方安全计算
       </p>
 
 
       <div class="nodes-select-outer-wrap">
         <div class="node-select-wrap">
           <input type="checkbox" class="function" id="avg" name="contact" value="avg">
-          <label for="avg">Average</label>
+          <label for="avg">Average 平均值</label>
         </div>
 
         <div class="node-select-wrap">
 
           <input type="checkbox" class="function" id="stats" name="contact" value="stats">
-          <label for="stats">Statistics</label>
+          <label for="stats">Statistics 统计分析</label>
+
+        </div>
+
+        <div class="node-select-wrap">
+
+          <input type="checkbox" class="function" id="min" name="contact" value="min">
+          <label for="min">Minimum 最小值</label>
+
+        </div>
+
+        <div class="node-select-wrap">
+
+          <input type="checkbox" class="function" id="max" name="contact" value="max">
+          <label for="max">Maximum 最大值</label>
+
+        </div>
+
+        <div class="node-select-wrap">
+
+          <input type="checkbox" class="function" id="absolute" name="contact" value="absolute">
+          <label for="absolute">AbsoluteDeviation 绝对偏差</label>
+
+        </div>
+
+        <div class="node-select-wrap">
+
+          <input type="checkbox" class="function" id="quartile" name="contact" value="quartile">
+          <label for="quartile">Quartile 四分位数</label>
+
+        </div>
+
+        <div class="node-select-wrap">
+
+          <input type="checkbox" class="function" id="medium" name="contact" value="medium">
+          <label for="medium">Medium 中位数</label>
+
+        </div>
+
+        <div class="node-select-wrap">
+
+          <input type="checkbox" class="function" id="upperquartile" name="contact" value="upperquartile">
+          <label for="upperquartile">UpperQuartile 上四分位数</label>
+
+        </div>
+
+        <div class="node-select-wrap">
+
+          <input type="checkbox" class="function" id="variance" name="contact" value="variance">
+          <label for="variance">Variance 方差</label>
+
+        </div>
+        
+        <div class="node-select-wrap">
+
+          <input type="checkbox" class="function" id="standard" name="contact" value="standard">
+          <label for="standard">StandardDeviation 标准差</label>
+
+        </div>
+
+        <div class="node-select-wrap">
+
+          <input type="checkbox" class="function" id="sknewness" name="contact" value="sknewness">
+          <label for="sknewness">Sknewness 偏差</label>
+
+        </div>
+
+        <div class="node-select-wrap">
+
+          <input type="checkbox" class="function" id="kurtosis" name="contact" value="kurtosis">
+          <label for="kurtosis">Kurtosis 峰值</label>
 
         </div>
 
         <div class="node-select-wrap">
 
           <input type="checkbox" class="function" id="k-means" name="contact" value="k-means">
-          <label for="k-means">k-means</label>
+          <label for="k-means">k-means K均值聚类</label>
 
           (Number of clusters: <input class="num_clusters" type="text" id="num_clusters" name="num_clusters">)
         </div>
 
         <button class="request-btn" onClick="mpc_computation();" id="addButton">
-          Request the MPC computation.
+          发起多方安全计算
         </button>
         <div class="error-msg" id="errorMsg" style="display:none"></div>
 
