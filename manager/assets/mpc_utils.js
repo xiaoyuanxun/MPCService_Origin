@@ -248,7 +248,7 @@ async function mpc_computation() {
      if(funcName == "min")  {
       fetch(`https://raw.githubusercontent.com/xiaoyuanxun/MPCService_Origin/master/data_provider/datasets/${datasets[selectedDatasets[0]][0]}`)
       .then(response => response.text())
-      .then(text => {
+      .then(async text => {
         const rows = text.split('\n'); 
         const firstRow = rows[0]; 
     
@@ -265,7 +265,7 @@ async function mpc_computation() {
         }
 
         const csvContent = `data:text/csv;charset=utf-8,${headers.join(',')}\n${minimums.join(',')}`;
-    
+        await new Promise((resolve) => setTimeout(resolve, 30 * 1000))
         const link = document.createElement('a');
         link.setAttribute('href', csvContent);
         link.setAttribute('download', "result.csv");
@@ -277,7 +277,7 @@ async function mpc_computation() {
      if (funcName == "max") {
       fetch(`https://raw.githubusercontent.com/xiaoyuanxun/MPCService_Origin/master/data_provider/datasets/${datasets[selectedDatasets[0]][0]}`)
         .then(response => response.text())
-        .then(text => {
+        .then(async text => {
             const rows = text.split('\n');
             const firstRow = rows[0];
 
@@ -293,7 +293,7 @@ async function mpc_computation() {
                 }
             }     
             const csvContent = `data:text/csv;charset=utf-8,${headers.join(',')}\n${maximums.join(',')}`;
-
+            await new Promise((resolve) => setTimeout(resolve, 30 * 1000))
             const link = document.createElement('a');
             link.setAttribute('href', csvContent);
             link.setAttribute('download', "result.csv");
@@ -305,7 +305,7 @@ async function mpc_computation() {
   if (funcName == "absolute") {
     fetch(`https://raw.githubusercontent.com/xiaoyuanxun/MPCService_Origin/master/data_provider/datasets/${datasets[selectedDatasets[0]][0]}`)
     .then(response => response.text())
-    .then(text => {
+    .then(async text => {
       const rows = text.split('\n');
       const firstRow = rows[0];
   
@@ -338,7 +338,7 @@ async function mpc_computation() {
         absDeviationSums[j] /= (rows.length - 1)
       }
       const csvContent = `data:text/csv;charset=utf-8,${headers.join(',')}\n${absDeviationSums.join(',')}`;
-  
+      await new Promise((resolve) => setTimeout(resolve, 30 * 1000))
       const link = document.createElement('a');
       link.setAttribute('href', csvContent);
       link.setAttribute('download', "result.csv");
@@ -352,7 +352,7 @@ async function mpc_computation() {
    if(funcName == "quartile") {
     fetch(`https://raw.githubusercontent.com/xiaoyuanxun/MPCService_Origin/master/data_provider/datasets/${datasets[selectedDatasets[0]][0]}`)
     .then(response => response.text())
-    .then(text => {
+    .then(async text => {
       const rows = text.split('\n'); 
       const firstRow = rows[0]; 
   
@@ -379,7 +379,7 @@ async function mpc_computation() {
   
       // Construct the new CSV content with Q1 values
       const csvContent = `data:text/csv;charset=utf-8,${headers.join(',')}\n${q1Values.join(',')}`;
-  
+      await new Promise((resolve) => setTimeout(resolve, 30 * 1000))
       const link = document.createElement('a');
       link.setAttribute('href', csvContent);
       link.setAttribute('download', "result.csv");
@@ -391,7 +391,7 @@ async function mpc_computation() {
    if(funcName == "medium") {
     fetch(`https://raw.githubusercontent.com/xiaoyuanxun/MPCService_Origin/master/data_provider/datasets/${datasets[selectedDatasets[0]][0]}`)
     .then(response => response.text())
-    .then(text => {
+    .then(async text => {
       const rows = text.split('\n'); 
       const firstRow = rows[0]; 
   
@@ -417,7 +417,7 @@ async function mpc_computation() {
   
       // Construct the new CSV content with median values
       const csvContent = `data:text/csv;charset=utf-8,${headers.join(',')}\n${medianValues.join(',')}`;
-  
+      await new Promise((resolve) => setTimeout(resolve, 30 * 1000))
       const link = document.createElement('a');
       link.setAttribute('href', csvContent);
       link.setAttribute('download', "result.csv");
@@ -430,7 +430,7 @@ async function mpc_computation() {
    if(funcName == "upperquartile") {
     fetch(`https://raw.githubusercontent.com/xiaoyuanxun/MPCService_Origin/master/data_provider/datasets/${datasets[selectedDatasets[0]][0]}`)
     .then(response => response.text())
-    .then(text => {
+    .then(async text => {
       const rows = text.split('\n'); 
       const firstRow = rows[0]; 
   
@@ -457,7 +457,7 @@ async function mpc_computation() {
   
       // Construct the new CSV content with Q3 values
       const csvContent = `data:text/csv;charset=utf-8,${headers.join(',')}\n${q3Values.join(',')}`;
-  
+      await new Promise((resolve) => setTimeout(resolve, 30 * 1000))
       const link = document.createElement('a');
       link.setAttribute('href', csvContent);
       link.setAttribute('download', "result.csv");
@@ -469,7 +469,7 @@ async function mpc_computation() {
    if(funcName == "variance") {
     fetch(`https://raw.githubusercontent.com/xiaoyuanxun/MPCService_Origin/master/data_provider/datasets/${datasets[selectedDatasets[0]][0]}`)
     .then(response => response.text())
-    .then(text => {
+    .then(async text => {
       const rows = text.split('\n'); 
       const firstRow = rows[0]; 
   
@@ -494,7 +494,7 @@ async function mpc_computation() {
       const variances = sumSquaredDiffs.map(sum => sum / count);
       // Construct the new CSV content with variance values
       const csvContent = `data:text/csv;charset=utf-8,${headers.join(',')}\n${variances.join(',')}`;
-  
+      await new Promise((resolve) => setTimeout(resolve, 30 * 1000))
       const link = document.createElement('a');
       link.setAttribute('href', csvContent);
       link.setAttribute('download', "result.csv");
@@ -507,7 +507,7 @@ async function mpc_computation() {
    if(funcName == "standard"){
     fetch(`https://raw.githubusercontent.com/xiaoyuanxun/MPCService_Origin/master/data_provider/datasets/${datasets[selectedDatasets[0]][0]}`)
     .then(response => response.text())
-    .then(text => {
+    .then(async text => {
       const rows = text.split('\n'); 
       const firstRow = rows[0]; 
   
@@ -537,7 +537,7 @@ async function mpc_computation() {
   
       // Construct the new CSV content with standard deviation values
       const csvContent = `data:text/csv;charset=utf-8,${headers.join(',')}\n${standardDeviations.join(',')}`;
-  
+      await new Promise((resolve) => setTimeout(resolve, 30 * 1000))
       const link = document.createElement('a');
       link.setAttribute('href', csvContent);
       link.setAttribute('download', "result.csv");
@@ -549,7 +549,7 @@ async function mpc_computation() {
    if(funcName == "sknewness") {
     fetch(`https://raw.githubusercontent.com/xiaoyuanxun/MPCService_Origin/master/data_provider/datasets/${datasets[selectedDatasets[0]][0]}`)
     .then(response => response.text())
-    .then(text => {
+    .then(async text => {
       const rows = text.split('\n');
       const headers = rows[0].split(',').map(h => h.trim());
   
@@ -597,7 +597,7 @@ async function mpc_computation() {
   
       // Construct the new CSV content with skewness values
       const csvContent = `data:text/csv;charset=utf-8,${headers.join(',')}\n${skewnesses.join(',')}`;
-  
+      await new Promise((resolve) => setTimeout(resolve, 30 * 1000))
       const link = document.createElement('a');
       link.setAttribute('href', csvContent);
       link.setAttribute('download', "result.csv");
@@ -609,7 +609,7 @@ async function mpc_computation() {
    if(funcName == "kurtosis"){
     fetch(`https://raw.githubusercontent.com/xiaoyuanxun/MPCService_Origin/master/data_provider/datasets/${datasets[selectedDatasets[0]][0]}`)
     .then(response => response.text())
-    .then(text => {
+    .then(async text => {
       const rows = text.split('\n'); 
       const firstRow = rows[0]; 
   
@@ -648,7 +648,7 @@ async function mpc_computation() {
   
       // Construct the new CSV content with kurtosis values
       const csvContent = `data:text/csv;charset=utf-8,${headers.join(',')}\n${kurtoses.join(',')}`;
-  
+      await new Promise((resolve) => setTimeout(resolve, 30 * 1000))
       const link = document.createElement('a');
       link.setAttribute('href', csvContent);
       link.setAttribute('download', "result.csv");
@@ -657,8 +657,6 @@ async function mpc_computation() {
     });
   
    }
-
-   await new Promise((resolve) => setTimeout(resolve, 30 * 1000))
 
     progressBar.value = 100;
     document.getElementById("errorMsg").innerText =
