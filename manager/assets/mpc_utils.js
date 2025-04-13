@@ -13,6 +13,17 @@ function load_nodes_table() {
         console.log('node : ', node)
 
         console.log('node.name : ', node.name)
+
+        if(node.name == 'Paris_node') {
+          node.name = '和平节点'
+        } else if(node.name == 'Berlin_node') {
+          node.name = '铁西节点'
+        } else if(node.name == 'Rome_node') {
+          node.name = '皇姑节点'
+        } else if(node.name == 'Ljubljana_node') {
+          node.name = '浑南节点'
+        }
+
         // Create the table data elements for the species and description columns
         var checkbox = document.createElement("INPUT");
         checkbox.type = "checkbox";
