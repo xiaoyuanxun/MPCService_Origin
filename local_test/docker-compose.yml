@@ -68,3 +68,40 @@ services:
     restart: always
     depends_on:
       - manager_test
+
+  mpc_node_test5:
+    container_name: mpc_node_test5
+    build:
+      context: ..
+      dockerfile: ./mpc_node/Dockerfile
+
+    command: [ "mpc_node", "start", "-name", "Bristol_node", "-scalePort", "4106", "-logLevel", "info",
+               "-manAddr", "manager_test:4101", "-nodeAddr", "mpc_node_test5"]
+    restart: always
+    depends_on:
+      - manager_test
+
+  mpc_node_test6:
+    container_name: mpc_node_test6
+    build:
+      context: ..
+      dockerfile: ./mpc_node/Dockerfile
+
+    command: [ "mpc_node", "start", "-name", "Leuven_node", "-scalePort", "4107", "-logLevel", "info",
+               "-manAddr", "manager_test:4101", "-nodeAddr", "mpc_node_test6"]
+    restart: always
+    depends_on:
+      - manager_test
+
+  mpc_node_test7:
+    container_name: mpc_node_test7
+    build:
+      context: ..
+      dockerfile: ./mpc_node/Dockerfile
+
+    command: [ "mpc_node", "start", "-name", "Madrid_node", "-scalePort", "4108", "-logLevel", "info",
+               "-manAddr", "manager_test:4101", "-nodeAddr", "mpc_node_test7"]
+    restart: always
+    depends_on:
+      - manager_test
+      

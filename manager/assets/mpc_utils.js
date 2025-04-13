@@ -22,6 +22,12 @@ function load_nodes_table() {
           node.name = '皇姑节点'
         } else if(node.name == 'Ljubljana_node') {
           node.name = '浑南节点'
+        } else if(node.name == 'Bristol_node') {
+          node.name = '沈河节点'
+        } else if(node.name == 'Leuven_node') {
+          node.name = '大东节点'
+        } else if(node.name == 'Madrid_node') {
+          node.name = '沈北节点'
         }
 
         // Create the table data elements for the species and description columns
