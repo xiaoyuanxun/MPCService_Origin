@@ -1,0 +1,37 @@
+from Compiler import input_output
+
+# Set LEN and COLS values
+LEN = 10
+COLS = 2
+
+l = LEN
+dim = [LEN // COLS, COLS]
+
+def upper_quartile(M):
+    cols = len(M[0])
+    rows = len(M)
+    # Flatten matrix into a list for sorting
+    flat_M = [item for sublist in M for item in sublist]
+    # Sort list in ascending order
+    flat_M.sort()
+    # Find median index
+    median_idx = len(flat_M) // 2
+    # If length is odd, exclude median value and find median of upper half
+    if len(flat_M) % 2 == 1:
+        upper_half = flat_M[median_idx+1:]
+        median_idx = len(upper_half) // 2
+        return [upper_half[median_idx]]
+    # If length is even, find median of upper half
+    else:
+        upper_half = flat_M[median_idx:]
+        median_idx = len(upper_half) // 2
+        return [(upper_half[median_idx-1] + upper_half[median_idx]) / 2]
+
+# Load input matrix
+X = input_output.load_sfix_matrix(dim[0], dim[1])
+
+# Find upper quartile value using upper_quartile function
+res = upper_quartile(X)
+
+# Output resulting array
+input_output.output_sfix_array(res)

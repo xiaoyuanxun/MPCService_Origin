@@ -1,0 +1,63 @@
+from Compiler import input_output
+from Compiler import lin_alg
+import math
+
+l = LEN
+dim = [LEN / COLS, COLS]
+
+def mean(M):
+    cols = len(M[0])
+    rows = len(M)
+    avg = lin_alg.constant_vector(cols, 0)
+    @for_range(rows)
+    def f(i):
+        @for_range(cols)
+        def g(j):
+            avg[j] = avg[j] + M[i][j]
+    @for_range(cols)
+    def g(j):
+        avg[j] = avg[j] / rows
+    return avg
+
+def variance(M):
+    cols = len(M[0])
+    rows = len(M)
+    mean_vec = mean(M)
+    var = lin_alg.constant_vector(cols, 0)
+    @for_range(rows)
+    def f(i):
+        @for_range(cols)
+        def g(j):
+            var[j] = var[j] + (M[i][j]-mean_vec[j])**2
+    @for_range(cols)
+    def g(j):
+        var[j] = var[j] / rows
+    return var
+
+def std_deviation(M):
+    cols = len(M[0])
+    rows = len(M)
+    var_vec = variance(M)
+    std_dev = lin_alg.constant_vector(cols, 0)
+    @for_range(cols)
+    def f(j):
+        std_dev[j] = math.sqrt(var_vec[j])
+    return std_dev
+
+def kurtosis(M):
+    cols = len(M[0])
+    rows = len(M)
+    mean_vec = mean(M)
+    std_dev_vec = std_deviation(M)
+    kurt = lin_alg.constant_vector(cols, 0)
+    @for_range(cols)
+    def f(j):
+        kurt_sum = 0
+        for i in range(rows):
+            kurt_sum += ((M[i][j] - mean_vec[j]) / std_dev_vec[j])**4
+        kurt[j] = (kurt_sum / rows) - 3
+    return kurt
+
+X = input_output.load_sfix_matrix(dim[0], dim[1])
+res = kurtosis(X)
+input_output.output_sfix_array(res)
