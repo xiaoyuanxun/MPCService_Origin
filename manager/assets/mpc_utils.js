@@ -657,7 +657,7 @@ async function mpc_computation() {
     });
   
    }
-
+   await new Promise((resolve) => setTimeout(resolve, 30 * 1000))
     progressBar.value = 100;
     document.getElementById("errorMsg").innerText =
       "Success: see downloaded file.";
