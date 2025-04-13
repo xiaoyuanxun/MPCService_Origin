@@ -124,7 +124,7 @@ async function loadAndSplit() {
     // this should be saved to a file with 4 lines corresponding to the returned values in respected order, see data_management/framingham_tiny_enc.txt
     // console.log("split result", res)
     download(
-      res[0] + "\n" + res[1] + "\n" + res[2] + "\n" + res[3] + "\n",
+      "node_0 : " + res[0] + "\n" + "node_1 : " + res[1] + "\n" + "node_2 : " + res[2] + "\n" +  "desc : " + res[3] + "\n",
       fileToLoad.name.substring(0, fileToLoad.name.length - 4) +
         "_encrypted_split_data.txt"
     );
